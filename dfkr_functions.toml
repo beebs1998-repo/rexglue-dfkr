@@ -3,3 +3,33 @@
 # "[FATAL] Call to invalid or unregistered function at guest address 0x..."
 # AFTER the static hint pass (scripts/build_module_hints.ps1) did not cover
 # the address (see AGENTS.md).
+
+# Bootstrap seeds (initial codegen validation): 8 direct `b` targets in the
+# shell code range that ReXGlue's analyzer does not detect as function starts
+# either (same resolution dfkbl/mushi use for their curated ep seeds). The
+# clean-codegen leg of scripts/build_module_hints.ps1 revalidates the
+# entrypoint with ONLY this file in its include list, so these must live here
+# rather than in dfkr_hints.toml.
+[functions."0x82096120"]
+name = "sub_82096120"
+
+[functions."0x820B3B90"]
+name = "sub_820B3B90"
+
+[functions."0x82096110"]
+name = "sub_82096110"
+
+[functions."0x82094F58"]
+name = "sub_82094F58"
+
+[functions."0x82096848"]
+name = "sub_82096848"
+
+[functions."0x82094F48"]
+name = "sub_82094F48"
+
+[functions."0x820A6918"]
+name = "sub_820A6918"
+
+[functions."0x820B3540"]
+name = "sub_820B3540"

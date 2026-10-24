@@ -59,7 +59,7 @@ foreach ($required in @('game_data/default.xex', 'game_data/dat12.bin', 'game_da
     }
 }
 
-$common = @('codegen', 'mushi_manifest.toml')
+$common = @('codegen', 'dfkr_manifest.toml')
 if ($IgnoreStamp) { $common += '--ignore-stamp' }
 
 # The seven game-mode modules all share guest base 0x88000000, so a combined
