@@ -1,0 +1,85 @@
+# dfkr - ReXGlue codegen manifest.
+#
+# DoDonPachi DaiFukkatsu Resurrection (XBLA title 545A07D2). The entrypoint is
+# the XEX; the game-mode modules are Cave's shipped binaries loaded mutually
+# exclusively (mode select swaps them by unload->load, dfkbl-like). All share
+# guest base 0x88000000, so codegen runs one target per invocation
+# (scripts/codegen_all.ps1) and the two generated glue files are hand-merged
+# (generated/default/dll_targets.cmake, module_registry.cpp).
+#
+# Module inventory (from the decrypted entrypoint's path strings; confirmed
+# against 360tools xextool + extract_pe.py, 2026-10-24, see AGENTS.md):
+#
+#   disc ("game:\..."):
+#     dat12.bin, dat163.bin, dat222.bin, dat112.bin
+#   DLC (own content packages, mounted through "XexLoadImage" + %s:\%s):
+#     dat111.bin  - package 60C587083B6BAC92A1F662AF72A11BD497F4838554
+#     dat164.bin  - package 456866D4E784B661072F7B2D51C63D94E088644754
+#     dat15.bin   - package 456866D4E784B661072F7B2D51C63D94E088644754
+#
+#   Referenced by the shell but NOT available locally ("not owned/extracted"):
+#     dat170.bin (disc path, "game:\dat170.bin") and the DLC entries
+#     dat162.bin + dat00.bin. spa.bin in the 456866D4 package is XDBF asset
+#     data, not a module. If the runtime load order needs another image, add
+#     it here and regenerate.
+#
+# The DLC modules' binaries are LOCAL, gitignored staging copies of the Xenia
+# content packages (user_data/0000000000000000/545A07D2/00000002/<id>/*.bin
+# -> game_data/*.bin): codegen needs the files at a stable path. The runtime
+# resolves the DLC modules through the content mount; guest_path/file_path
+# here are codegen-only input (module recomp is matched by filename, pinned
+# in the SDK fork's FoundRecompiledModule fix).
+
+[project]
+name = "dfkr"
+sdk_version = "0.10.0"
+game_root = "game_data"
+
+[entrypoint]
+file_path = "game_data/default.xex"
+out_directory_path = "generated/default"
+includes = ["dfkr_hints.toml", "dfkr_functions.toml"]
+
+[[modules]]
+guest_path = "dat12.bin"
+file_path = "game_data/dat12.bin"
+out_directory_path = "generated/dat12"
+includes = ["dfkr_dat12_hints.toml", "dfkr_dat12_functions.toml"]
+
+[[modules]]
+guest_path = "dat112.bin"
+file_path = "game_data/dat112.bin"
+out_directory_path = "generated/dat112"
+includes = ["dfkr_dat112_hints.toml", "dfkr_dat112_functions.toml"]
+
+[[modules]]
+guest_path = "dat163.bin"
+file_path = "game_data/dat163.bin"
+out_directory_path = "generated/dat163"
+includes = ["dfkr_dat163_hints.toml", "dfkr_dat163_functions.toml"]
+
+[[modules]]
+guest_path = "dat222.bin"
+file_path = "game_data/dat222.bin"
+out_directory_path = "generated/dat222"
+includes = ["dfkr_dat222_hints.toml", "dfkr_dat222_functions.toml"]
+
+# DLC-delivered game-mode module (content type 00000002, package 60C58708...).
+[[modules]]
+guest_path = "dat111.bin"
+file_path = "game_data/dat111.bin"
+out_directory_path = "generated/dat111"
+includes = ["dfkr_dat111_hints.toml", "dfkr_dat111_functions.toml"]
+
+# DLC-delivered game-mode modules (content type 00000002, package 456866D4...).
+[[modules]]
+guest_path = "dat164.bin"
+file_path = "game_data/dat164.bin"
+out_directory_path = "generated/dat164"
+includes = ["dfkr_dat164_hints.toml", "dfkr_dat164_functions.toml"]
+
+[[modules]]
+guest_path = "dat15.bin"
+file_path = "game_data/dat15.bin"
+out_directory_path = "generated/dat15"
+includes = ["dfkr_dat15_hints.toml", "dfkr_dat15_functions.toml"]

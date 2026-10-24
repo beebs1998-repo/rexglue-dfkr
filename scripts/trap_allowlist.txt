@@ -1,0 +1,9 @@
+# Embedded-trap allow-list for scripts/validate_codegen.ps1.
+#
+# Identity format: "<target> <class> <guest addresses>"; everything after '#'
+# on a line is a comment. Site identities are host-file independent.
+#
+# Intentionally EMPTY at project creation: a new site fails the gate until it
+# is fixed (hints/overrides) or triaged into this file deliberately, with a
+# comment. See the sibling ports (futari/dfkbl/mushi) for what a triaged
+# baseline looks like.
