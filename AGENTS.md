@@ -48,24 +48,23 @@ Decryption route: `360tools` (`I:\workspace\360tools`) —
 default.xex out.bin` for the decrypted PE (then strings-scan). NEVER run
 xextool without `-o <out>`: writing to the original XEX is destructive.
 
-| File | Source | Package |
+| File | Source | Mode (first-playtest `XexLoadImage` ground truth, 2026-10-26) |
 | --- | --- | --- |
-| `dat12.bin` | disc (`game:\`) | |
-| `dat112.bin` | disc (`game:\`) | |
-| `dat163.bin` | disc (`game:\`) | |
-| `dat222.bin` | disc (`game:\`) | |
-| `dat111.bin` | DLC | `60C587083B6BAC92A1F662AF72A11BD497F4838554` ("ver 1.51") |
-| `dat164.bin` | DLC | `456866D4E784B661072F7B2D51C63D94E088644754` ("DoDonPachi Resurrection Black Label") |
-| `dat15.bin` | DLC | `456866D4E784B661072F7B2D51C63D94E088644754` (also carries data `spa.bin`, XDBF asset container, not a module) |
+| `dat12.bin` | disc (`game:\`) | ver 1.5 Xbox 360 |
+| `dat112.bin` | disc (`game:\`) | ver L Arrange A |
+| `dat163.bin` | disc (`game:\`) | ver 1.5 Novice |
+| `dat222.bin` | disc (`game:\`) | ver B Arrange B |
+| `dat111.bin` | DLC (`ver151:\`) | ver 1.51 Xbox 360 — `60C587083B6BAC92A1F662AF72A11BD497F4838554` ("ver 1.51") |
+| `dat164.bin` | DLC (`bl:\`) | Black Label (full; BL boots through dat15 first) — `456866D4E784B661072F7B2D51C63D94E088644754` |
+| `dat15.bin` | DLC (`bl:\`) | BL boot/Novice-side XEX: BL Novice runs on it, BL full switches dat15→dat164, BL replay sessions mount it — same `456866D4…` BL package (also carries data `spa.bin`, XDBF asset container, not a module) |
 
 Referenced by the shell but NOT available locally: `dat170.bin`
-(`game:\dat170.bin`) and the DLC entries `dat162.bin`/`dat00.bin`. In-game
-mode names per file are TBD — the sisters' convention is that log
-`XexLoadImage` lines provide ground truth on first playtest.
+(`game:\dat170.bin`) and the DLC entries `dat162.bin`/`dat00.bin`. They did
+not load during the first playtest (their entries never surfaced).
 
-Switching semantics: expected strictly unload→load (dfkbl/mushi-like);
-confirm at first playtest whether any futari-style base-overlap hook is
-needed (7 modules now share `0x88000000`).
+Switching semantics: strict unload→load confirmed at first playtest (all
+7 modes; `load_count now 0` on every switch, no base-overlap hook needed —
+dfkbl/mushi-like, not futari-like).
 
 ## Layout
 

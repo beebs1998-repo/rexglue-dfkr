@@ -103,6 +103,46 @@ Unresolved branch` appears on a different address, add that address per the
 now-proven recipe (capstone-decode context → register target; `[[switch_tables]]`
 only if an `lwzx/mtctr/bctr` dispatcher head is confirmed).
 
+### iter-10 — first clean playtest; mode→module ground truth (2026-10-26)
+
+Re-test after iter-9: **all 7 modes entered and played, replay save and
+replay load both work**. No `[error]`/`[critical]` from core, no `[FATAL]`,
+no unresolved-branch events anywhere in 197 log lines.
+
+`XexLoadImage`/`XexUnloadImage` ground truth (strict unload→load on every
+switch, `load_count now 0` + `recomp=found` on every unload):
+
+| mode | module | mount |
+| --- | --- | --- |
+| ver 1.5 Novice | `dat163.bin` | `game:\` |
+| ver 1.51 Xbox 360 | `dat111.bin` | `ver151:\` (DLC 60C58708) |
+| ver B Arrange B | `dat222.bin` | `game:\` |
+| ver L Arrange A | `dat112.bin` | `game:\` |
+| ver 1.5 Xbox 360 | `dat12.bin` | `game:\` |
+| Black Label | `dat15.bin` → `dat164.bin` | `bl:\` (DLC 456866D4) |
+| Black Label Novice | `dat15.bin` | `bl:\` |
+| BL replay save/load | `dat15.bin` | `bl:\` |
+
+Black Label detail: entering full BL mounts `dat15` (~11 s) then switches
+to `dat164` (~15 s session) — `dat15` reads as the BL boot/Novice-side XEX,
+`dat164` the full BL game; BL Novice and replay sessions run on `dat15`
+alone (was reached by the ~15 s/per-mode test pattern; one targeted retest
+pins it if ever needed). The disc-referenced `dat170.bin` and DLC
+`dat162.bin`/`dat00.bin` never load — their (invisible/unowned) entries did
+not surface in this pass.
+
+Residual, non-blocking noise (`[error]`, rate-limited, game continued):
+
+- `[gpu] Unsupported resolve vertex buffer format (vf0: type=2, size=…)` +
+  `PM4_DRAW_INDX(3,4,0) Failed in backend` during the first mode boot
+  (t≈06:24:25, after dat163 load).
+- `[gpu] Tried to resolve to format k_1_REVERSE, which is not a
+  ColorFormat` during the Black Label session (t≈06:27:41).
+- `[krnl] Unimplemented XLIVEBASE message app=000000FC msg=0005000C` ×2
+  during replay save/load ops — replay ops succeeded regardless.
+
+Status: **project validated.** Pushed to GitHub after this pass.
+
 ## Known-unknowns status
 
 - Package display names drive the mode mapping so far ("ver 1.51" →

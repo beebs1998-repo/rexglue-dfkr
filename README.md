@@ -53,7 +53,12 @@ game_data/
 
 Four disc modules are swapped mutually exclusively on mode change
 (unload→load); the DLC ones share the same guest base and are mounted through
-their own content packages.
+their own content packages. First-playtest mode mapping (`XexLoadImage`
+ground truth, 2026-10-26): `dat163` = ver 1.5 Novice, `dat12` = ver 1.5
+Xbox 360, `dat222` = ver B Arrange B, `dat112` = ver L Arrange A,
+`dat111` = ver 1.51 Xbox 360; the Black Label family runs on `dat164`
+(full BL; entry boots through `dat15` first) and `dat15` (BL Novice and BL
+replay sessions).
 
 ### DLC
 
@@ -62,9 +67,9 @@ packages. Three of their binaries are recompiled here:
 
 | Content id | Module | Notes |
 | --- | --- | --- |
-| `60C587083B6BAC92A1F662AF72A11BD497F4838554` | `dat111.bin` | package display name: **"ver 1.51"** |
-| `456866D4E784B661072F7B2D51C63D94E088644754` | `dat164.bin` | package display name: **"DoDonPachi Resurrection Black Label"** |
-| `456866D4E784B661072F7B2D51C63D94E088644754` | `dat15.bin` | same package (also carries `spa.bin`, XDBF asset data) |
+| `60C587083B6BAC92A1F662AF72A11BD497F4838554` | `dat111.bin` | package display name: **"ver 1.51"** — ver 1.51 Xbox 360 mode |
+| `456866D4E784B661072F7B2D51C63D94E088644754` | `dat164.bin` | package display name: **"DoDonPachi Resurrection Black Label"** — full Black Label mode |
+| `456866D4E784B661072F7B2D51C63D94E088644754` | `dat15.bin` | same package (also carries `spa.bin`, XDBF asset data) — BL boot/Novice-side XEX: BL Novice + BL replay sessions |
 
 Availability comes entirely from *staging* — no config cvar:
 
@@ -209,7 +214,15 @@ playtest-driven iteration log. Day-one status:
 - the shell references `game:\dat170.bin` and DLC entries `dat162.bin` /
   `dat00.bin` that are NOT present in the local `game_data/`/user packages -
   the affected modes (exactly which, to be confirmed at first playtest) are
-  unavailable until those images surface.
+  unavailable until those images surface. (First playtest: none of these
+  entries ever surfaced — all seven reachable modes play fine.)
+- Two rate-limited GPU resolve-format error patterns in otherwise-clean
+  sessions (log only, game continues): "Unsupported resolve vertex buffer
+  format" right after a mode boot and "Tried to resolve to format
+  k_1_REVERSE" during a Black Label session. Cosmetic/no visible effect so
+  far; potential follow-up with the sibling GPU findings.
+- `Unimplemented XLIVEBASE message app=000000FC msg=0005000C` twice during
+  replay ops — replay save/load succeeded anyway.
 
 ## Credits & legal
 
