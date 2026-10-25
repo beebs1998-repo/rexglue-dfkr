@@ -14595,12 +14595,17 @@ DEFINE_REX_FUNC(sub_821CE324) {
 	// cmpwi cr6,r5,0
 	ctx.cr6.compare<int32_t>(ctx.r5.s32, 0, ctx.xer);
 	// ble cr6,0x821ce334
-	if (!ctx.cr6.gt) goto loc_821CE334;
+	if (!ctx.cr6.gt) {
+		sub_821CE334(ctx, base);
+		return;
+	}
 	// cmpwi cr6,r5,9
 	ctx.cr6.compare<int32_t>(ctx.r5.s32, 9, ctx.xer);
 	// ble cr6,0x821ce2e8
-	// ERROR: conditional branch to unknown address 0x821CE2E8
-	if (!ctx.cr6.gt) REX_FATAL("Unresolved branch from 0x821CE330 to 0x821CE2E8");
+	if (!ctx.cr6.gt) {
+		sub_821CE2E8(ctx, base);
+		return;
+	}
 loc_821CE334:
 	// li r3,1
 	ctx.r3.s64 = 1;

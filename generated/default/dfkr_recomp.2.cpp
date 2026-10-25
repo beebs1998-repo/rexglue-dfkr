@@ -34541,8 +34541,7 @@ DEFINE_REX_FUNC(sub_8235F2DC) {
 	// li r9,2
 	ctx.r9.s64 = 2;
 	// b 0x8235f23c
-	// FATAL: unresolved function 0x8235F23C (no CallTarget in FunctionNode)
-	REX_FATAL("Unresolved call from 0x8235F2E4 to 0x8235F23C");
+	sub_8235F23C(ctx, base);
 	return;
 }
 

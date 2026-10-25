@@ -4401,7 +4401,10 @@ DEFINE_REX_FUNC(sub_820DA520) {
 	// cmpwi cr6,r10,0
 	ctx.cr6.compare<int32_t>(ctx.r10.s32, 0, ctx.xer);
 	// beq cr6,0x820da564
-	if (ctx.cr6.eq) goto loc_820DA564;
+	if (ctx.cr6.eq) {
+		sub_820DA564(ctx, base);
+		return;
+	}
 loc_820DA53C:
 	// lwz r10,4284(r3)
 	ctx.r10.u64 = REX_LOAD_U32(ctx.r3.u32 + 4284);
@@ -4412,20 +4415,26 @@ loc_820DA53C:
 	// cmpw cr6,r9,r8
 	ctx.cr6.compare<int32_t>(ctx.r9.s32, ctx.r8.s32, ctx.xer);
 	// beq cr6,0x820da0a8
-	// ERROR: conditional branch to unknown address 0x820DA0A8
-	if (ctx.cr6.eq) REX_FATAL("Unresolved branch from 0x820DA54C to 0x820DA0A8");
+	if (ctx.cr6.eq) {
+		sub_820DA0A8(ctx, base);
+		return;
+	}
 	// lwz r11,8(r11)
 	ctx.r11.u64 = REX_LOAD_U32(ctx.r11.u32 + 8);
 	// cmpwi cr6,r11,1
 	ctx.cr6.compare<int32_t>(ctx.r11.s32, 1, ctx.xer);
 	// beq cr6,0x820da0a8
-	// ERROR: conditional branch to unknown address 0x820DA0A8
-	if (ctx.cr6.eq) REX_FATAL("Unresolved branch from 0x820DA558 to 0x820DA0A8");
+	if (ctx.cr6.eq) {
+		sub_820DA0A8(ctx, base);
+		return;
+	}
 	// cmpwi cr6,r11,4
 	ctx.cr6.compare<int32_t>(ctx.r11.s32, 4, ctx.xer);
 	// beq cr6,0x820da0a8
-	// ERROR: conditional branch to unknown address 0x820DA0A8
-	if (ctx.cr6.eq) REX_FATAL("Unresolved branch from 0x820DA560 to 0x820DA0A8");
+	if (ctx.cr6.eq) {
+		sub_820DA0A8(ctx, base);
+		return;
+	}
 loc_820DA564:
 	// li r3,0
 	ctx.r3.s64 = 0;
@@ -4453,13 +4462,6 @@ DEFINE_REX_FUNC(sub_820DB868) {
 	ctx.r3.s64 = 9;
 	// blr 
 	return;
-loc_820DB8D0:
-	// bnelr cr6
-	if (!ctx.cr6.eq) return;
-	// li r3,7
-	ctx.r3.s64 = 7;
-	// blr 
-	return;
 loc_820DB96C:
 	// cmpwi cr6,r7,1
 	ctx.cr6.compare<int32_t>(ctx.r7.s32, 1, ctx.xer);
@@ -4468,7 +4470,8 @@ loc_820DB96C:
 	// cmpwi cr6,r7,2
 	ctx.cr6.compare<int32_t>(ctx.r7.s32, 2, ctx.xer);
 	// b 0x820db8d0
-	goto loc_820DB8D0;
+	sub_820DB8D0(ctx, base);
+	return;
 loc_820DBA5C:
 	// li r3,1
 	ctx.r3.s64 = 1;
@@ -35059,8 +35062,7 @@ DEFINE_REX_FUNC(sub_8235F2E8) {
 	// li r9,10
 	ctx.r9.s64 = 10;
 	// b 0x8235f274
-	// FATAL: unresolved function 0x8235F274 (no CallTarget in FunctionNode)
-	REX_FATAL("Unresolved call from 0x8235F2F0 to 0x8235F274");
+	sub_8235F274(ctx, base);
 	return;
 }
 

@@ -15215,7 +15215,10 @@ loc_821CE2F0:
 	// cmplwi cr6,r11,12
 	ctx.cr6.compare<uint32_t>(ctx.r11.u32, 12, ctx.xer);
 	// bgt cr6,0x821ce334
-	if (ctx.cr6.gt) goto loc_821CE334;
+	if (ctx.cr6.gt) {
+		sub_821CE334(ctx, base);
+		return;
+	}
 	// lis r12,-32251
 	ctx.r12.s64 = -2113601536;
 	// addi r12,r12,31800
@@ -15276,11 +15279,6 @@ loc_821CE2F0:
 	default:
 		__builtin_trap(); // Switch case out of range
 	}
-loc_821CE334:
-	// li r3,1
-	ctx.r3.s64 = 1;
-	// blr 
-	return;
 }
 
 DEFINE_REX_FUNC(sub_821CE3E0) {
@@ -15288,13 +15286,14 @@ DEFINE_REX_FUNC(sub_821CE3E0) {
 	// cmpwi cr6,r5,10
 	ctx.cr6.compare<int32_t>(ctx.r5.s32, 10, ctx.xer);
 	// beq cr6,0x821ce2e8
-	// ERROR: conditional branch to unknown address 0x821CE2E8
-	if (ctx.cr6.eq) REX_FATAL("Unresolved branch from 0x821CE3E4 to 0x821CE2E8");
+	if (ctx.cr6.eq) {
+		sub_821CE2E8(ctx, base);
+		return;
+	}
 	// cmpwi cr6,r5,13
 	ctx.cr6.compare<int32_t>(ctx.r5.s32, 13, ctx.xer);
 	// b 0x821ce380
-	// FATAL: unresolved function 0x821CE380 (no CallTarget in FunctionNode)
-	REX_FATAL("Unresolved call from 0x821CE3EC to 0x821CE380");
+	sub_821CE380(ctx, base);
 	return;
 }
 
@@ -34222,8 +34221,7 @@ DEFINE_REX_FUNC(sub_8235F1A4) {
 	// li r9,32
 	ctx.r9.s64 = 32;
 	// b 0x8235f128
-	// FATAL: unresolved function 0x8235F128 (no CallTarget in FunctionNode)
-	REX_FATAL("Unresolved call from 0x8235F1A8 to 0x8235F128");
+	sub_8235F128(ctx, base);
 	return;
 }
 

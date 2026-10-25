@@ -4061,7 +4061,10 @@ DEFINE_REX_FUNC(sub_820DA014) {
 	// cmpwi cr6,r11,11
 	ctx.cr6.compare<int32_t>(ctx.r11.s32, 11, ctx.xer);
 	// bne cr6,0x820da0a8
-	if (!ctx.cr6.eq) goto loc_820DA0A8;
+	if (!ctx.cr6.eq) {
+		sub_820DA0A8(ctx, base);
+		return;
+	}
 loc_820DA098:
 	// lwz r11,20(r10)
 	ctx.r11.u64 = REX_LOAD_U32(ctx.r10.u32 + 20);
@@ -4070,7 +4073,10 @@ loc_820DA098:
 	// li r3,0
 	ctx.r3.s64 = 0;
 	// beq cr6,0x820da0ac
-	if (ctx.cr6.eq) goto loc_820DA0AC;
+	if (ctx.cr6.eq) {
+		sub_820DA0AC(ctx, base);
+		return;
+	}
 loc_820DA0A8:
 	// li r3,1
 	ctx.r3.s64 = 1;

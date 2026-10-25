@@ -1066,8 +1066,10 @@ loc_820A4C18:
 	// cmpwi cr6,r11,0
 	ctx.cr6.compare<int32_t>(ctx.r11.s32, 0, ctx.xer);
 	// bne cr6,0x820a4a2c
-	// ERROR: conditional branch to unknown address 0x820A4A2C
-	if (!ctx.cr6.eq) REX_FATAL("Unresolved branch from 0x820A4C28 to 0x820A4A2C");
+	if (!ctx.cr6.eq) {
+		sub_820A4A2C(ctx, base);
+		return;
+	}
 	// blr 
 	return;
 }
@@ -3279,8 +3281,10 @@ DEFINE_REX_FUNC(sub_820DA3A0) {
 	// cmplwi cr6,r11,24
 	ctx.cr6.compare<uint32_t>(ctx.r11.u32, 24, ctx.xer);
 	// bgt cr6,0x820da0a8
-	// ERROR: conditional branch to unknown address 0x820DA0A8
-	if (ctx.cr6.gt) REX_FATAL("Unresolved branch from 0x820DA3AC to 0x820DA0A8");
+	if (ctx.cr6.gt) {
+		sub_820DA0A8(ctx, base);
+		return;
+	}
 	// lis r12,-32242
 	ctx.r12.s64 = -2113011712;
 	// rlwinm r0,r11,2,0,29
@@ -3370,8 +3374,10 @@ loc_820DA680:
 	// cmpwi cr6,r11,1
 	ctx.cr6.compare<int32_t>(ctx.r11.s32, 1, ctx.xer);
 	// beq cr6,0x820da0ac
-	// ERROR: conditional branch to unknown address 0x820DA0AC
-	if (ctx.cr6.eq) REX_FATAL("Unresolved branch from 0x820DA68C to 0x820DA0AC");
+	if (ctx.cr6.eq) {
+		sub_820DA0AC(ctx, base);
+		return;
+	}
 loc_820DA690:
 	// li r3,0
 	ctx.r3.s64 = 0;
@@ -33629,6 +33635,27 @@ loc_8235D588:
 	return;
 }
 
+DEFINE_REX_FUNC(sub_8235F0F8) {
+	REX_FUNC_PROLOGUE();
+	// stw r9,4(r11)
+	REX_STORE_U32(ctx.r11.u32 + 4, ctx.r9.u32);
+	// li r10,0
+	ctx.r10.s64 = 0;
+	// stw r9,0(r11)
+	REX_STORE_U32(ctx.r11.u32 + 0, ctx.r9.u32);
+	// li r3,2
+	ctx.r3.s64 = 2;
+	// stw r10,12(r11)
+	REX_STORE_U32(ctx.r11.u32 + 12, ctx.r10.u32);
+	// b 0x8235f1e0
+	goto loc_8235F1E0;
+loc_8235F1E0:
+	// stw r10,8(r11)
+	REX_STORE_U32(ctx.r11.u32 + 8, ctx.r10.u32);
+	// blr 
+	return;
+}
+
 DEFINE_REX_FUNC(sub_8235F14C) {
 	REX_FUNC_PROLOGUE();
 	// li r10,11
@@ -33636,8 +33663,7 @@ DEFINE_REX_FUNC(sub_8235F14C) {
 	// li r9,10
 	ctx.r9.s64 = 10;
 	// b 0x8235f0d8
-	// FATAL: unresolved function 0x8235F0D8 (no CallTarget in FunctionNode)
-	REX_FATAL("Unresolved call from 0x8235F154 to 0x8235F0D8");
+	sub_8235F0D8(ctx, base);
 	return;
 }
 

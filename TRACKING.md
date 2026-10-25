@@ -50,6 +50,59 @@ History and conventions live in the sibling repos:
 - Status: hints + triage committed; first playtest is the next session's
   driver (mode entries, uncertain `dat170`/`dat162`/`dat00` entrypoints).
 
+### iter-9 — first-playtest crash fixed: register the loop-twin family wholesale (2026-10-26)
+
+Symptom: first launch, login screen reached, **crash 14 s after boot** —
+`[critical] [FATAL] Unresolved branch from 0x820A4C28 to 0x820A4A2C`
+(inside `sub_820A4C04` in `dfkr_recomp.4.cpp`, `bne cr6 → 0x820A4A2C`).
+The trap gate's compile-time tolerance held, but one triaged family is
+**proven live at runtime** and needed a real fix.
+
+Root cause (decrypted shell `default_dec.bin`, VA = `0x82000000` + offset,
+capstone): `0x820A4A2C` is the head of a **shared jump-table dispatch block**
+sitting in the unowned gap between registered neighbours `sub_820A49B8` /
+`sub_820A4C04`:
+`addi r11,r11,-0x21; cmplwi cr6,r11,0x5C; bgt cr6,0x820A4C14; lis r12,-0x7DF6;`
+`slwi r0,r11,2; addi r12,r12,0x4A50; lwzx r0,r12,r0; mtctr r0; bctr` —
+93-entry label table at `0x820A4A50`, bodies `0x820A4BC4..0x820A4C14`.
+Neither the PDATA scan nor bl-scan can promote it (entry is only reached by
+conditional branches from twin shell loops), identical to the dfkbl
+`0x820A4554` class.
+
+Fix (both sibling precedents, applied **wholesale** instead of
+one-at-a-time, payload appended to `dfkr_functions.toml`):
+
+- 38 `[functions."0x820XXXXX"]` entries — every unique target of the 101
+  triaged allowlist identities (35 plain mid-block twins + the 3 dispatcher
+  heads, also registered so incoming `bc`s become resolvable tail calls).
+- 3 `[[switch_tables]]` overrides for the confirmed dispatchers (futari
+  pattern; labels read out of the image):
+
+  | head (entry) | table | entries | bctr (override addr) | reg |
+  | --- | --- | --- | --- | --- |
+  | `0x820A0C70` | `0x820A0C98` | 21 | `0x820A0C94` | r11 |
+  | `0x820A4A2C` | `0x820A4A50` | 93 | `0x820A4A4C` | r11 |
+  | `0x820A5044` | `0x820A5068` | 94 | `0x820A5064` | r11 |
+
+  (`0x821CE2E8`, also in the family, verified NOT a dispatcher — it is an
+  `lbzx` byte-lookup block; plain registration suffices.)
+
+Results: regen (`-IgnoreStamp`) + build clean (exe + 7 DLLs, 06:21
+timestamps); gate re-run → **all 101 prior identities stale, 0 embedded
+trap sites, 849 switch-traps informational** — the crash `bc` now compiles
+as a clean tail call `sub_820A4A2C(ctx, base)`. Allowlist kept as-is
+(stale entries are informational; prune on a later pass).
+
+Known CLI noise during regen (unchanged from iter-8):
+`BaseHeap::Release failed because address is not a region start` ×7 and an
+exit-1 from the CLI's shutdown path despite `2 written, 172 unchanged` +
+`Done` — validate/build steps confirm success independently.
+
+Status: fixed + committed; awaiting re-playtest. If a NEW `[FATAL]
+Unresolved branch` appears on a different address, add that address per the
+now-proven recipe (capstone-decode context → register target; `[[switch_tables]]`
+only if an `lwzx/mtctr/bctr` dispatcher head is confirmed).
+
 ## Known-unknowns status
 
 - Package display names drive the mode mapping so far ("ver 1.51" →

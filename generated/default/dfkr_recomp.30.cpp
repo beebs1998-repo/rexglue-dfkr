@@ -15958,13 +15958,14 @@ DEFINE_REX_FUNC(sub_821CE3B0) {
 	// cmpwi cr6,r5,10
 	ctx.cr6.compare<int32_t>(ctx.r5.s32, 10, ctx.xer);
 	// blt cr6,0x821ce334
-	// ERROR: conditional branch to unknown address 0x821CE334
-	if (ctx.cr6.lt) REX_FATAL("Unresolved branch from 0x821CE3B4 to 0x821CE334");
+	if (ctx.cr6.lt) {
+		sub_821CE334(ctx, base);
+		return;
+	}
 	// cmpwi cr6,r5,13
 	ctx.cr6.compare<int32_t>(ctx.r5.s32, 13, ctx.xer);
 	// b 0x821ce330
-	// FATAL: unresolved function 0x821CE330 (no CallTarget in FunctionNode)
-	REX_FATAL("Unresolved call from 0x821CE3BC to 0x821CE330");
+	sub_821CE330(ctx, base);
 	return;
 }
 

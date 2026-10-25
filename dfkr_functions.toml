@@ -33,3 +33,367 @@ name = "sub_820A6918"
 
 [functions."0x820B3540"]
 name = "sub_820B3540"
+
+# ==== iter-9 fix (2026-10-26) - first-playtest crash / loop-twin registrations ====
+#
+# Runtime crash 14 s after boot: [FATAL] Unresolved branch from 0x820A4C28 to
+# 0x820A4A2C (dfkr_recomp.4.cpp - sub_820A4C04's bne cr6 jumps into the shared
+# jump-table dispatch head at 0x820A4A2C, an unowned gap block between
+# sub_820A49B8 and sub_820A4C04). Resolutions, dfkbl 0x820A4554 + futari
+# switch-table precedent applied wholesale to the family both analyzers
+# refuse to promote:
+#   - Register every unique target of the triaged unresolved_call/branch
+#     sites as a function (38 addresses, mid-block twins like dfkbl's class).
+#   - [[switch_tables]] overrides for the three confirmed 4-byte dispatch
+#     heads (cmp bounds cmplwi rX,0x14/0x5C/0x5D; table addresses traced in
+#     the decrypted shell image; labels read out of the image).
+# Allow-list entries for sites that resolve after registration become stale
+# (gate notes them; removal expected at next validation pass).
+
+# -- switch table overrides (futari [[switch_tables]] precedent) --
+# dispatch head 0x820A0C70: cmplwi r11, 0x14 (21 entries, index offset 0), table 0x820A0C98, bctr 0x820A0C94
+[[switch_tables]]
+address = 0x820A0C94
+register = 11
+labels = [
+    0x820A0CF0,
+    0x820A0CEC,
+    0x820A0CEC,
+    0x820A0CEC,
+    0x820A0CEC,
+    0x820A0CEC,
+    0x820A0CEC,
+    0x820A0CEC,
+    0x820A0CEC,
+    0x820A0CEC,
+    0x820A0CEC,
+    0x820A0CEC,
+    0x820A0CEC,
+    0x820A0CF0,
+    0x820A0CF0,
+    0x820A0CEC,
+    0x820A0CEC,
+    0x820A0CEC,
+    0x820A0CEC,
+    0x820A0CF0,
+    0x820A0CF0
+]
+
+# dispatch head 0x820A4A2C: cmplwi r11, 0x5c (93 entries, index offset 0), table 0x820A4A50, bctr 0x820A4A4C
+[[switch_tables]]
+address = 0x820A4A4C
+register = 11
+labels = [
+    0x820A4BC4,
+    0x820A4BEC,
+    0x820A4C0C,
+    0x820A4C14,
+    0x820A4C14,
+    0x820A4C14,
+    0x820A4BCC,
+    0x820A4BE4,
+    0x820A4BE4,
+    0x820A4C04,
+    0x820A4C0C,
+    0x820A4BCC,
+    0x820A4BFC,
+    0x820A4BD4,
+    0x820A4C14,
+    0x820A4C14,
+    0x820A4BF4,
+    0x820A4C14,
+    0x820A4C14,
+    0x820A4C14,
+    0x820A4C14,
+    0x820A4C14,
+    0x820A4C0C,
+    0x820A4C14,
+    0x820A4C14,
+    0x820A4BC4,
+    0x820A4BC4,
+    0x820A4BF4,
+    0x820A4C04,
+    0x820A4BF4,
+    0x820A4C04,
+    0x820A4C14,
+    0x820A4C14,
+    0x820A4C14,
+    0x820A4C14,
+    0x820A4C14,
+    0x820A4C14,
+    0x820A4C14,
+    0x820A4C14,
+    0x820A4C14,
+    0x820A4BEC,
+    0x820A4C04,
+    0x820A4C14,
+    0x820A4C14,
+    0x820A4C14,
+    0x820A4C14,
+    0x820A4C14,
+    0x820A4C14,
+    0x820A4C14,
+    0x820A4C14,
+    0x820A4C14,
+    0x820A4C14,
+    0x820A4C14,
+    0x820A4C14,
+    0x820A4C14,
+    0x820A4C14,
+    0x820A4C14,
+    0x820A4C14,
+    0x820A4BDC,
+    0x820A4C14,
+    0x820A4BD4,
+    0x820A4BEC,
+    0x820A4BEC,
+    0x820A4C14,
+    0x820A4C14,
+    0x820A4C0C,
+    0x820A4C14,
+    0x820A4C0C,
+    0x820A4C14,
+    0x820A4C04,
+    0x820A4C0C,
+    0x820A4C0C,
+    0x820A4BEC,
+    0x820A4BFC,
+    0x820A4C0C,
+    0x820A4BF4,
+    0x820A4C14,
+    0x820A4C0C,
+    0x820A4C0C,
+    0x820A4C14,
+    0x820A4C14,
+    0x820A4C0C,
+    0x820A4C14,
+    0x820A4BFC,
+    0x820A4C14,
+    0x820A4C14,
+    0x820A4C14,
+    0x820A4C14,
+    0x820A4C14,
+    0x820A4C14,
+    0x820A4BDC,
+    0x820A4BC4,
+    0x820A4BDC
+]
+
+# dispatch head 0x820A5044: cmplwi r11, 0x5d (94 entries, index offset 0), table 0x820A5068, bctr 0x820A5064
+[[switch_tables]]
+address = 0x820A5064
+register = 11
+labels = [
+    0x820A51E8,
+    0x820A5200,
+    0x820A5208,
+    0x820A5208,
+    0x820A5208,
+    0x820A5208,
+    0x820A51E8,
+    0x820A5208,
+    0x820A5200,
+    0x820A5208,
+    0x820A5208,
+    0x820A51E8,
+    0x820A5208,
+    0x820A51F0,
+    0x820A5208,
+    0x820A5208,
+    0x820A51F8,
+    0x820A5208,
+    0x820A5208,
+    0x820A5208,
+    0x820A5208,
+    0x820A5208,
+    0x820A5208,
+    0x820A5208,
+    0x820A5208,
+    0x820A51F0,
+    0x820A51F0,
+    0x820A5208,
+    0x820A5208,
+    0x820A5208,
+    0x820A5208,
+    0x820A5208,
+    0x820A5208,
+    0x820A5208,
+    0x820A5208,
+    0x820A5208,
+    0x820A5208,
+    0x820A5208,
+    0x820A5208,
+    0x820A5208,
+    0x820A51F8,
+    0x820A5208,
+    0x820A5208,
+    0x820A5208,
+    0x820A5208,
+    0x820A5208,
+    0x820A5208,
+    0x820A5208,
+    0x820A5208,
+    0x820A5208,
+    0x820A5208,
+    0x820A5208,
+    0x820A5208,
+    0x820A5208,
+    0x820A5208,
+    0x820A5208,
+    0x820A5208,
+    0x820A5208,
+    0x820A51F8,
+    0x820A5208,
+    0x820A51F8,
+    0x820A5200,
+    0x820A5200,
+    0x820A5208,
+    0x820A5200,
+    0x820A5208,
+    0x820A5208,
+    0x820A5208,
+    0x820A5208,
+    0x820A5200,
+    0x820A5200,
+    0x820A5208,
+    0x820A5200,
+    0x820A5200,
+    0x820A5208,
+    0x820A51F8,
+    0x820A5208,
+    0x820A5208,
+    0x820A5208,
+    0x820A5208,
+    0x820A5208,
+    0x820A5200,
+    0x820A5208,
+    0x820A5200,
+    0x820A5208,
+    0x820A5208,
+    0x820A5208,
+    0x820A5208,
+    0x820A5208,
+    0x820A5208,
+    0x820A51F8,
+    0x820A51E0,
+    0x820A51F8,
+    0x820A5200
+]
+
+
+# -- mid-block twin registrations (dfkbl 0x820A4554 precedent) --
+# unresolved_branch target, reached live from 0x820A0D04 (triaged iter-8 baseline)
+[functions."0x820A0C70"]
+
+# unresolved_branch target, reached live from 0x820A4C28 (triaged iter-8 baseline)
+[functions."0x820A4A2C"]
+
+# unresolved_branch target, reached live from 0x820A521C (triaged iter-8 baseline)
+[functions."0x820A5044"]
+
+# unresolved_branch target, reached live from 0x820D9F90 (triaged iter-8 baseline)
+[functions."0x820D9EF0"]
+
+# unresolved_branch target, reached live from 0x820DA438 (triaged iter-8 baseline)
+[functions."0x820D9FE4"]
+
+# unresolved_call target, reached live from 0x820DA0C4 (triaged iter-8 baseline)
+[functions."0x820DA09C"]
+
+# unresolved_branch target, reached live from 0x820DA2E4 (triaged iter-8 baseline)
+[functions."0x820DA0A8"]
+
+# unresolved_branch target, reached live from 0x820DA18C (triaged iter-8 baseline)
+[functions."0x820DA0AC"]
+
+# unresolved_call target, reached live from 0x820DA2D4 (triaged iter-8 baseline)
+[functions."0x820DA290"]
+
+# unresolved_branch target, reached live from 0x820DA584 (triaged iter-8 baseline)
+[functions."0x820DA518"]
+
+# unresolved_branch target, reached live from 0x820DA6B0 (triaged iter-8 baseline)
+[functions."0x820DA564"]
+
+# unresolved_branch target, reached live from 0x820DB908 (triaged iter-8 baseline)
+[functions."0x820DB844"]
+
+# unresolved_branch target, reached live from 0x820DB924 (triaged iter-8 baseline)
+[functions."0x820DB850"]
+
+# unresolved_branch target, reached live from 0x820DBA50 (triaged iter-8 baseline)
+[functions."0x820DB870"]
+
+# unresolved_call target, reached live from 0x820DB9EC (triaged iter-8 baseline)
+[functions."0x820DB874"]
+
+# unresolved_branch target, reached live from 0x820DB9A4 (triaged iter-8 baseline)
+[functions."0x820DB898"]
+
+# unresolved_branch target, reached live from 0x820DBA58 (triaged iter-8 baseline)
+[functions."0x820DB8A0"]
+
+# unresolved_branch target, reached live from 0x820DB8C8 (triaged iter-8 baseline)
+[functions."0x820DB8A8"]
+
+# unresolved_call target, reached live from 0x820DBA1C (triaged iter-8 baseline)
+[functions."0x820DB8BC"]
+
+# unresolved_call target, reached live from 0x820DB978 (triaged iter-8 baseline)
+[functions."0x820DB8D0"]
+
+# unresolved_call target, reached live from 0x821C9C30 (triaged iter-8 baseline)
+[functions."0x821C9678"]
+
+# unresolved_call target, reached live from 0x821C9970 (triaged iter-8 baseline)
+[functions."0x821C96E8"]
+
+# unresolved_call target, reached live from 0x821C9C00 (triaged iter-8 baseline)
+[functions."0x821C9880"]
+
+# unresolved_call target, reached live from 0x821CE384 (triaged iter-8 baseline)
+[functions."0x821CE2E8"]
+
+# unresolved_call target, reached live from 0x821CE3CC (triaged iter-8 baseline)
+[functions."0x821CE330"]
+
+# unresolved_branch target, reached live from 0x821CE3C4 (triaged iter-8 baseline)
+[functions."0x821CE334"]
+
+# unresolved_call target, reached live from 0x821CE3EC (triaged iter-8 baseline)
+[functions."0x821CE380"]
+
+# unresolved_call target, reached live from 0x8235F180 (triaged iter-8 baseline)
+[functions."0x8235F088"]
+
+# unresolved_call target, reached live from 0x8235F148 (triaged iter-8 baseline)
+[functions."0x8235F0A0"]
+
+# unresolved_call target, reached live from 0x8235F154 (triaged iter-8 baseline)
+[functions."0x8235F0D8"]
+
+# unresolved_call target, reached live from 0x8235F1A0 (triaged iter-8 baseline)
+[functions."0x8235F0F8"]
+
+# unresolved_call target, reached live from 0x8235F190 (triaged iter-8 baseline)
+[functions."0x8235F0FC"]
+
+# unresolved_call target, reached live from 0x8235F198 (triaged iter-8 baseline)
+[functions."0x8235F128"]
+
+# unresolved_call target, reached live from 0x8235F2BC (triaged iter-8 baseline)
+[functions."0x8235F224"]
+
+# unresolved_call target, reached live from 0x8235F2E4 (triaged iter-8 baseline)
+[functions."0x8235F23C"]
+
+# unresolved_call target, reached live from 0x8235F2F0 (triaged iter-8 baseline)
+[functions."0x8235F274"]
+
+# unresolved_call target, reached live from 0x8235F314 (triaged iter-8 baseline)
+[functions."0x8235F294"]
+
+# unresolved_call target, reached live from 0x8235F334 (triaged iter-8 baseline)
+[functions."0x8235F2C4"]
+
+
