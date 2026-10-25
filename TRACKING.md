@@ -150,6 +150,16 @@ Status: **project validated.** Pushed to GitHub after this pass.
 - Package display names drive the mode mapping so far ("ver 1.51" →
   dat111; "DoDonPachi Resurrection Black Label" → dat164/dat15); the
   `XexLoadImage` log provides ground truth at first playtest.
+- Wikipedia (DoDonPachi_Resurrection, user-supplied 2026-10-26) confirms
+  the edition structure behind the mapping: the disc port (ver 1.5, HD
+  graphics only) has Xbox 360 (Arcade) / Novice / Arrange A (ver L) /
+  Arrange B (ver B); ver 1.51 is first-press bonus DLC; the 1200-point BL
+  DLC contains Black Label + Black Label Novice but NOT Black Label
+  Arrange. Our 7 recompiled modules therefore cover every mode this
+  edition exposes; the shell's never-surfaced `dat170.bin` /
+  `dat162.bin` / `dat00.bin` references plausibly belong to content this
+  edition does not ship (e.g. Arrange-family / Platinum-edition), but
+  that remains an unverified hypothesis.
 
 ### iter-0 — project bootstrap (2026-10-24)
 

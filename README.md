@@ -215,7 +215,12 @@ playtest-driven iteration log. Day-one status:
   `dat00.bin` that are NOT present in the local `game_data/`/user packages -
   the affected modes (exactly which, to be confirmed at first playtest) are
   unavailable until those images surface. (First playtest: none of these
-  entries ever surfaced — all seven reachable modes play fine.)
+  entries ever surfaced — all seven reachable modes play fine. Per the
+  edition history, this is expected: the disc port covers Arcade/Novice/
+  Arrange A/Arrange B, ver 1.51 is first-press bonus DLC, and the BL DLC
+  contains exactly Black Label + Black Label Novice, with no Black Label
+  Arrange — so the unreferenced images plausibly belong to content this
+  edition does not ship.)
 - Two rate-limited GPU resolve-format error patterns in otherwise-clean
   sessions (log only, game continues): "Unsupported resolve vertex buffer
   format" right after a mode boot and "Tried to resolve to format

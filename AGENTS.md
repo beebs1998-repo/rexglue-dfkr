@@ -63,7 +63,12 @@ Referenced by the shell but NOT available locally: `dat170.bin`
 not load during the first playtest (their entries never surfaced).
 
 The BL package also carries data `spa.bin` (XDBF asset container, not a
-module).
+module). Per Wikipedia's edition history: the disc port (ver 1.5) covers
+Xbox 360 (Arcade)/Novice/Arrange A/Arrange B; ver 1.51 is first-press
+bonus DLC; the 1200-point BL DLC has Black Label + Black Label Novice but
+**not** Black Label Arrange. The shell's never-surfaced `dat170.bin` /
+`dat162.bin` / `dat00.bin` references plausibly belong to content this
+edition does not ship (unverified).
 
 Switching semantics: strict unload→load confirmed at first playtest (all
 7 modes; `load_count now 0` on every switch, no base-overlap hook needed —
