@@ -54,13 +54,16 @@ xextool without `-o <out>`: writing to the original XEX is destructive.
 | `dat112.bin` | disc (`game:\`) | ver L Arrange A |
 | `dat163.bin` | disc (`game:\`) | ver 1.5 Novice |
 | `dat222.bin` | disc (`game:\`) | ver B Arrange B |
-| `dat111.bin` | DLC (`ver151:\`) | ver 1.51 Xbox 360 — `60C587083B6BAC92A1F662AF72A11BD497F4838554` ("ver 1.51") |
-| `dat164.bin` | DLC (`bl:\`) | Black Label (full; BL boots through dat15 first) — `456866D4E784B661072F7B2D51C63D94E088644754` |
-| `dat15.bin` | DLC (`bl:\`) | BL boot/Novice-side XEX: BL Novice runs on it, BL full switches dat15→dat164, BL replay sessions mount it — same `456866D4…` BL package (also carries data `spa.bin`, XDBF asset container, not a module) |
+| `dat111.bin` | DLC (`ver151:\`) | ver 1.51 Xbox 360 (own content package `60C587083B6BAC92A1F662AF72A11BD497F4838554`, display name "ver 1.51") |
+| `dat164.bin` | DLC (`bl:\`) | **Black Label** (full game) — BL package `456866D4E784B661072F7B2D51C63D94E088644754` |
+| `dat15.bin` | DLC (`bl:\`) | **Black Label Novice** (game XEX) — also the BL package's boot/common module (full BL boots through it) and the BL replay module. Same `456866D4…` package; identical 5820-function code layout to dat164 (same BL build) |
 
 Referenced by the shell but NOT available locally: `dat170.bin`
 (`game:\dat170.bin`) and the DLC entries `dat162.bin`/`dat00.bin`. They did
 not load during the first playtest (their entries never surfaced).
+
+The BL package also carries data `spa.bin` (XDBF asset container, not a
+module).
 
 Switching semantics: strict unload→load confirmed at first playtest (all
 7 modes; `load_count now 0` on every switch, no base-overlap hook needed —

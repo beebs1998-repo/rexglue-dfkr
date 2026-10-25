@@ -56,9 +56,9 @@ Four disc modules are swapped mutually exclusively on mode change
 their own content packages. First-playtest mode mapping (`XexLoadImage`
 ground truth, 2026-10-26): `dat163` = ver 1.5 Novice, `dat12` = ver 1.5
 Xbox 360, `dat222` = ver B Arrange B, `dat112` = ver L Arrange A,
-`dat111` = ver 1.51 Xbox 360; the Black Label family runs on `dat164`
-(full BL; entry boots through `dat15` first) and `dat15` (BL Novice and BL
-replay sessions).
+`dat111` = ver 1.51 Xbox 360; the Black Label package carries exactly two
+games — **Black Label** (`dat164`, booted through a short `dat15` phase)
+and **Black Label Novice** (`dat15`, which also serves BL replay sessions).
 
 ### DLC
 
@@ -68,8 +68,8 @@ packages. Three of their binaries are recompiled here:
 | Content id | Module | Notes |
 | --- | --- | --- |
 | `60C587083B6BAC92A1F662AF72A11BD497F4838554` | `dat111.bin` | package display name: **"ver 1.51"** — ver 1.51 Xbox 360 mode |
-| `456866D4E784B661072F7B2D51C63D94E088644754` | `dat164.bin` | package display name: **"DoDonPachi Resurrection Black Label"** — full Black Label mode |
-| `456866D4E784B661072F7B2D51C63D94E088644754` | `dat15.bin` | same package (also carries `spa.bin`, XDBF asset data) — BL boot/Novice-side XEX: BL Novice + BL replay sessions |
+| `456866D4E784B661072F7B2D51C63D94E088644754` | `dat164.bin` | package display name: **"DoDonPachi Resurrection Black Label"** — Black Label (full) |
+| `456866D4E784B661072F7B2D51C63D94E088644754` | `dat15.bin` | same package — Black Label Novice; also BL boot/common module and BL replay module |
 
 Availability comes entirely from *staging* — no config cvar:
 

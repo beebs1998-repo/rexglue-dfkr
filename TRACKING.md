@@ -123,13 +123,15 @@ switch, `load_count now 0` + `recomp=found` on every unload):
 | Black Label Novice | `dat15.bin` | `bl:\` |
 | BL replay save/load | `dat15.bin` | `bl:\` |
 
-Black Label detail: entering full BL mounts `dat15` (~11 s) then switches
-to `dat164` (~15 s session) — `dat15` reads as the BL boot/Novice-side XEX,
-`dat164` the full BL game; BL Novice and replay sessions run on `dat15`
-alone (was reached by the ~15 s/per-mode test pattern; one targeted retest
-pins it if ever needed). The disc-referenced `dat170.bin` and DLC
-`dat162.bin`/`dat00.bin` never load — their (invisible/unowned) entries did
-not surface in this pass.
+Black Label detail (confirmed by a second targeted run, BL → BL Novice in
+succession): **the BL DLC package delivers exactly two games** — full
+Black Label runs on `dat164` (entered through an ~11 s `dat15` boot/common
+phase, then a strict UNLOAD→load switch), while Black Label Novice runs on
+`dat15` itself (run-1: a 117 s `dat15`-only session). BL replay save/load
+mounts `dat15` too. Corroboration: `dat15` and `dat164` BOTH register an
+identical 5820-function code layout — same BL build, version-differentiated.
+The disc-referenced `dat170.bin` and DLC `dat162.bin`/`dat00.bin` never
+load — their (invisible/unowned) entries did not surface in this pass.
 
 Residual, non-blocking noise (`[error]`, rate-limited, game continued):
 
