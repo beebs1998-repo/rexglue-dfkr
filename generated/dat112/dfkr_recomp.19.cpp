@@ -36980,6 +36980,12 @@ DEFINE_REX_FUNC(sub_8820A658) {
 	return;
 }
 
+DEFINE_REX_FUNC(sub_8820A9EC) {
+	REX_FUNC_PROLOGUE();
+	// blr 
+	return;
+}
+
 DEFINE_REX_FUNC(__savegprlr_23) {
 	REX_FUNC_PROLOGUE();
 	// std r23,-80(r1)

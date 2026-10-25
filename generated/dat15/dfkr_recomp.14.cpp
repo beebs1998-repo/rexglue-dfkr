@@ -38145,6 +38145,12 @@ DEFINE_REX_FUNC(sub_8821C2A8) {
 	return;
 }
 
+DEFINE_REX_FUNC(sub_8821C4BC) {
+	REX_FUNC_PROLOGUE();
+	// blr 
+	return;
+}
+
 DEFINE_REX_FUNC(sub_8821C4C0) {
 	REX_FUNC_PROLOGUE();
 	// cmplwi cr6,r3,0

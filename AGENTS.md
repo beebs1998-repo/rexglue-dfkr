@@ -54,8 +54,8 @@ xextool without `-o <out>`: writing to the original XEX is destructive.
 | `dat112.bin` | disc (`game:\`) | |
 | `dat163.bin` | disc (`game:\`) | |
 | `dat222.bin` | disc (`game:\`) | |
-| `dat111.bin` | DLC | `60C587083B6BAC92A1F662AF72A11BD497F4838554` |
-| `dat164.bin` | DLC | `456866D4E784B661072F7B2D51C63D94E088644754` |
+| `dat111.bin` | DLC | `60C587083B6BAC92A1F662AF72A11BD497F4838554` ("ver 1.51") |
+| `dat164.bin` | DLC | `456866D4E784B661072F7B2D51C63D94E088644754` ("DoDonPachi Resurrection Black Label") |
 | `dat15.bin` | DLC | `456866D4E784B661072F7B2D51C63D94E088644754` (also carries data `spa.bin`, XDBF asset container, not a module) |
 
 Referenced by the shell but NOT available locally: `dat170.bin`

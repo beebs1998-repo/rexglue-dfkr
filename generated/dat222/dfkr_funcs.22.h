@@ -4,7 +4,10 @@
 
 DECLARE_REX_FUNC(__imp__KeBugCheckEx);
 DECLARE_REX_FUNC(__imp__KeGetCurrentProcessType);
+DECLARE_REX_FUNC(__imp__NtAllocateVirtualMemory);
 DECLARE_REX_FUNC(__imp__NtFreeVirtualMemory);
+DECLARE_REX_FUNC(__imp__NtQueryVirtualMemory);
+DECLARE_REX_FUNC(__imp__RtlInitializeCriticalSection);
 DECLARE_REX_FUNC(__imp__RtlLeaveCriticalSection);
 DECLARE_REX_FUNC(__restgprlr_14);
 DECLARE_REX_FUNC(__restgprlr_17);
@@ -347,5 +350,8 @@ DECLARE_REX_FUNC(sub_88203778);
 DECLARE_REX_FUNC(sub_882037C0);
 DECLARE_REX_FUNC(sub_88203910);
 DECLARE_REX_FUNC(sub_88203980);
+DECLARE_REX_FUNC(sub_88203EB0);
 DECLARE_REX_FUNC(sub_88203F70);
+DECLARE_REX_FUNC(sub_88204A20);
 DECLARE_REX_FUNC(sub_88209E10);
+DECLARE_REX_FUNC(sub_8820AAE8);

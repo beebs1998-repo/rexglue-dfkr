@@ -1,9 +1,117 @@
 # Embedded-trap allow-list for scripts/validate_codegen.ps1.
 #
-# Identity format: "<target> <class> <guest addresses>"; everything after '#'
-# on a line is a comment. Site identities are host-file independent.
+# Identity format: "<target> <class> <guest-addr=guest-addr>"; everything after
+# '#' on a line is a comment. Site identities are host-file independent.
 #
-# Intentionally EMPTY at project creation: a new site fails the gate until it
-# is fixed (hints/overrides) or triaged into this file deliberately, with a
-# comment. See the sibling ports (futari/dfkbl/mushi) for what a triaged
-# baseline looks like.
+# Triaged baseline iter-8 (2026-10-24) - 101 site(s), ALL in default (the shell):
+# the block-twin/jump-table residue class documented in mushi TRACKING.md
+# Iteration 4 / futari TRACKING.md. Every site is a cr6-twinned unresolved_call /
+# unresolved_branch pair whose target is one of the ~56 shell b addresses neither
+# analyzer treats as a function start (0x820A/0x820D/0x821C96-CE/0x8235F cluster
+# families, shared Cave-shell code shape; mushi triaged the same ranges).
+# CAVEAT (same as mushi's baseline): NOT playtest-verified yet. dfkbl later cut
+# 20 sites via the SDK branch-classification fix + a live mid-block registration;
+# revisiting this list is expected after first playtest.
+# switch_trap sites (informational, counted only) are never listed here.
+
+default unresolved_call 0X8235F1A0=0X8235F0F8   # generated\default\dfkr_recomp.1.cpp:33840
+default unresolved_call 0X8235F198=0X8235F128   # generated\default\dfkr_recomp.12.cpp:34589
+default unresolved_call 0X820DA2D4=0X820DA290   # generated\default\dfkr_recomp.15.cpp:4766
+default unresolved_call 0X8235F148=0X8235F0A0   # generated\default\dfkr_recomp.19.cpp:33696
+default unresolved_call 0X8235F2E4=0X8235F23C   # generated\default\dfkr_recomp.2.cpp:34545
+default unresolved_call 0X8235F180=0X8235F088   # generated\default\dfkr_recomp.21.cpp:32645
+default unresolved_call 0X8235F334=0X8235F2C4   # generated\default\dfkr_recomp.21.cpp:32655
+default unresolved_call 0X8235F314=0X8235F294   # generated\default\dfkr_recomp.22.cpp:34024
+default unresolved_call 0X821C9970=0X821C96E8   # generated\default\dfkr_recomp.23.cpp:17049
+default unresolved_call 0X821C9A2C=0X821C96E8   # generated\default\dfkr_recomp.23.cpp:17154
+default unresolved_call 0X821C9A64=0X821C96E8   # generated\default\dfkr_recomp.23.cpp:17189
+default unresolved_call 0X821C9C00=0X821C9880   # generated\default\dfkr_recomp.23.cpp:17420
+default unresolved_call 0X821C9C30=0X821C9678   # generated\default\dfkr_recomp.23.cpp:17451
+default unresolved_call 0X821CE3CC=0X821CE330   # generated\default\dfkr_recomp.24.cpp:15825
+default unresolved_call 0X820DB978=0X820DB8D0   # generated\default\dfkr_recomp.25.cpp:3750
+default unresolved_call 0X820DB9EC=0X820DB874   # generated\default\dfkr_recomp.25.cpp:3826
+default unresolved_call 0X820DBA1C=0X820DB8BC   # generated\default\dfkr_recomp.25.cpp:3862
+default unresolved_call 0X821CE358=0X821CE330   # generated\default\dfkr_recomp.26.cpp:15320
+default unresolved_call 0X8235F154=0X8235F0D8   # generated\default\dfkr_recomp.29.cpp:33640
+default unresolved_call 0X821CE3BC=0X821CE330   # generated\default\dfkr_recomp.30.cpp:15967
+default unresolved_call 0X821CE3EC=0X821CE380   # generated\default\dfkr_recomp.34.cpp:15297
+default unresolved_call 0X8235F1A8=0X8235F128   # generated\default\dfkr_recomp.34.cpp:34226
+default unresolved_call 0X8235F190=0X8235F0FC   # generated\default\dfkr_recomp.36.cpp:36386
+default unresolved_call 0X820DA0C4=0X820DA09C   # generated\default\dfkr_recomp.37.cpp:4372
+default unresolved_call 0X8235F2F0=0X8235F274   # generated\default\dfkr_recomp.38.cpp:35063
+default unresolved_call 0X821CE384=0X821CE2E8   # generated\default\dfkr_recomp.4.cpp:14270
+default unresolved_call 0X8235F2BC=0X8235F224   # generated\default\dfkr_recomp.40.cpp:34493
+default unresolved_call 0X821CE3AC=0X821CE380   # generated\default\dfkr_recomp.43.cpp:16012
+default unresolved_call 0X8235F120=0X8235F088   # generated\default\dfkr_recomp.43.cpp:35236
+default unresolved_call 0X8235F324=0X8235F2C4   # generated\default\dfkr_recomp.43.cpp:35246
+default unresolved_call 0X821CE3DC=0X821CE380   # generated\default\dfkr_recomp.44.cpp:18194
+default unresolved_call 0X8235F178=0X8235F0F8   # generated\default\dfkr_recomp.44.cpp:34755
+default unresolved_call 0X8235F32C=0X8235F294   # generated\default\dfkr_recomp.44.cpp:34765
+default unresolved_call 0X8235F31C=0X8235F224   # generated\default\dfkr_recomp.6.cpp:36195
+default unresolved_branch 0X821CE330=0X821CE2E8   # generated\default\dfkr_recomp.0.cpp:14603
+default unresolved_branch 0X820DA18C=0X820DA0AC   # generated\default\dfkr_recomp.1.cpp:3301
+default unresolved_branch 0X820A4C28=0X820A4A2C   # generated\default\dfkr_recomp.12.cpp:1133
+default unresolved_branch 0X820DA1C0=0X820DA0AC   # generated\default\dfkr_recomp.12.cpp:4397
+default unresolved_branch 0X820DA438=0X820D9FE4   # generated\default\dfkr_recomp.13.cpp:3493
+default unresolved_branch 0X820DA444=0X820DA0AC   # generated\default\dfkr_recomp.13.cpp:3500
+default unresolved_branch 0X820A0D04=0X820A0C70   # generated\default\dfkr_recomp.15.cpp:871
+default unresolved_branch 0X820DA2E4=0X820DA0A8   # generated\default\dfkr_recomp.15.cpp:4775
+default unresolved_branch 0X820DA2F0=0X820DA0A8   # generated\default\dfkr_recomp.15.cpp:4782
+default unresolved_branch 0X820DA6F8=0X820DA0AC   # generated\default\dfkr_recomp.15.cpp:4814
+default unresolved_branch 0X820DB8C8=0X820DB8A8   # generated\default\dfkr_recomp.15.cpp:4841
+default unresolved_branch 0X820A521C=0X820A5044   # generated\default\dfkr_recomp.16.cpp:1136
+default unresolved_branch 0X820DA20C=0X820DA0A8   # generated\default\dfkr_recomp.23.cpp:3311
+default unresolved_branch 0X820DA298=0X820DA0A8   # generated\default\dfkr_recomp.23.cpp:3340
+default unresolved_branch 0X820DA2A4=0X820DA0A8   # generated\default\dfkr_recomp.23.cpp:3347
+default unresolved_branch 0X820DA2B0=0X820DA0A8   # generated\default\dfkr_recomp.23.cpp:3354
+default unresolved_branch 0X821C991C=0X821C96E8   # generated\default\dfkr_recomp.23.cpp:17001
+default unresolved_branch 0X821C9958=0X821C96E8   # generated\default\dfkr_recomp.23.cpp:17035
+default unresolved_branch 0X821C9A24=0X821C9880   # generated\default\dfkr_recomp.23.cpp:17149
+default unresolved_branch 0X821C9A4C=0X821C96E8   # generated\default\dfkr_recomp.23.cpp:17175
+default unresolved_branch 0X821C9B48=0X821C96E8   # generated\default\dfkr_recomp.23.cpp:17317
+default unresolved_branch 0X821C9C0C=0X821C9678   # generated\default\dfkr_recomp.23.cpp:17430
+default unresolved_branch 0X821C9C18=0X821C9678   # generated\default\dfkr_recomp.23.cpp:17437
+default unresolved_branch 0X821CE3C4=0X821CE334   # generated\default\dfkr_recomp.24.cpp:15820
+default unresolved_branch 0X820D9F90=0X820D9EF0   # generated\default\dfkr_recomp.25.cpp:3627
+default unresolved_branch 0X820D9FA4=0X820D9EF0   # generated\default\dfkr_recomp.25.cpp:3638
+default unresolved_branch 0X820DB908=0X820DB844   # generated\default\dfkr_recomp.25.cpp:3679
+default unresolved_branch 0X820DB924=0X820DB850   # generated\default\dfkr_recomp.25.cpp:3697
+default unresolved_branch 0X820DB968=0X820DB874   # generated\default\dfkr_recomp.25.cpp:3740
+default unresolved_branch 0X820DB9A4=0X820DB898   # generated\default\dfkr_recomp.25.cpp:3781
+default unresolved_branch 0X821CE340=0X821CE334   # generated\default\dfkr_recomp.26.cpp:15305
+default unresolved_branch 0X821CE348=0X821CE2E8   # generated\default\dfkr_recomp.26.cpp:15310
+default unresolved_branch 0X821CE350=0X821CE334   # generated\default\dfkr_recomp.26.cpp:15315
+default unresolved_branch 0X820DA3AC=0X820DA0A8   # generated\default\dfkr_recomp.29.cpp:3283
+default unresolved_branch 0X820DA68C=0X820DA0AC   # generated\default\dfkr_recomp.29.cpp:3374
+default unresolved_branch 0X821CE3B4=0X821CE334   # generated\default\dfkr_recomp.30.cpp:15962
+default unresolved_branch 0X821CE3E4=0X821CE2E8   # generated\default\dfkr_recomp.34.cpp:15292
+default unresolved_branch 0X820DA0BC=0X820DA0A8   # generated\default\dfkr_recomp.37.cpp:4367
+default unresolved_branch 0X820DA508=0X820DA0A8   # generated\default\dfkr_recomp.37.cpp:4453
+default unresolved_branch 0X820DA514=0X820DA0A8   # generated\default\dfkr_recomp.37.cpp:4460
+default unresolved_branch 0X820DA54C=0X820DA0A8   # generated\default\dfkr_recomp.38.cpp:4416
+default unresolved_branch 0X820DA558=0X820DA0A8   # generated\default\dfkr_recomp.38.cpp:4423
+default unresolved_branch 0X820DA560=0X820DA0A8   # generated\default\dfkr_recomp.38.cpp:4428
+default unresolved_branch 0X821CE360=0X821CE334   # generated\default\dfkr_recomp.4.cpp:14247
+default unresolved_branch 0X821CE368=0X821CE2E8   # generated\default\dfkr_recomp.4.cpp:14252
+default unresolved_branch 0X821CE370=0X821CE2E8   # generated\default\dfkr_recomp.4.cpp:14257
+default unresolved_branch 0X821CE378=0X821CE2E8   # generated\default\dfkr_recomp.4.cpp:14262
+default unresolved_branch 0X821CE380=0X821CE334   # generated\default\dfkr_recomp.4.cpp:14267
+default unresolved_branch 0X820DA1F4=0X820DA0AC   # generated\default\dfkr_recomp.40.cpp:3587
+default unresolved_branch 0X820DA728=0X820D9EF0   # generated\default\dfkr_recomp.40.cpp:3623
+default unresolved_branch 0X820DA734=0X820DA0A8   # generated\default\dfkr_recomp.40.cpp:3630
+default unresolved_branch 0X820DA740=0X820D9EF0   # generated\default\dfkr_recomp.40.cpp:3637
+default unresolved_branch 0X820DA6B0=0X820DA564   # generated\default\dfkr_recomp.43.cpp:3622
+default unresolved_branch 0X820DA6BC=0X820DA0A8   # generated\default\dfkr_recomp.43.cpp:3630
+default unresolved_branch 0X820DA6C4=0X820DA0A8   # generated\default\dfkr_recomp.43.cpp:3635
+default unresolved_branch 0X821CE38C=0X821CE334   # generated\default\dfkr_recomp.43.cpp:15992
+default unresolved_branch 0X821CE394=0X821CE2E8   # generated\default\dfkr_recomp.43.cpp:15997
+default unresolved_branch 0X821CE39C=0X821CE334   # generated\default\dfkr_recomp.43.cpp:16002
+default unresolved_branch 0X821CE3A4=0X821CE2E8   # generated\default\dfkr_recomp.43.cpp:16007
+default unresolved_branch 0X820DA5E4=0X820DA0A8   # generated\default\dfkr_recomp.44.cpp:3932
+default unresolved_branch 0X821CE3D4=0X821CE2E8   # generated\default\dfkr_recomp.44.cpp:18189
+default unresolved_branch 0X820DA584=0X820DA518   # generated\default\dfkr_recomp.48.cpp:3801
+default unresolved_branch 0X820DA598=0X820DA0A8   # generated\default\dfkr_recomp.48.cpp:3813
+default unresolved_branch 0X820DA5A4=0X820DA0A8   # generated\default\dfkr_recomp.48.cpp:3820
+default unresolved_branch 0X820DBA30=0X820DB844   # generated\default\dfkr_recomp.48.cpp:3839
+default unresolved_branch 0X820DBA50=0X820DB870   # generated\default\dfkr_recomp.48.cpp:3857
+default unresolved_branch 0X820DBA58=0X820DB8A0   # generated\default\dfkr_recomp.48.cpp:3862

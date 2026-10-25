@@ -38127,6 +38127,22 @@ loc_88202DB0:
 	return;
 }
 
+DEFINE_REX_FUNC(sub_8820ADE8) {
+	REX_FUNC_PROLOGUE();
+	// li r3,0
+	ctx.r3.s64 = 0;
+	// lwz r29,80(r31)
+	ctx.r29.u64 = REX_LOAD_U32(ctx.r31.u32 + 80);
+	// b 0x8820adf8
+	goto loc_8820ADF8;
+loc_8820ADF8:
+	// addi r1,r31,144
+	ctx.r1.s64 = ctx.r31.s64 + 144;
+	// b 0x8820aec4
+	__restgprlr_27(ctx, base);
+	return;
+}
+
 DEFINE_REX_FUNC(sub_88213EA0) {
 	REX_FUNC_PROLOGUE();
 	uint32_t ea{};

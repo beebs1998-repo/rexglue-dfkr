@@ -37776,6 +37776,12 @@ loc_8820C0FC:
 	return;
 }
 
+DEFINE_REX_FUNC(sub_8820C7A4) {
+	REX_FUNC_PROLOGUE();
+	// blr 
+	return;
+}
+
 DEFINE_REX_FUNC(__savegprlr_14) {
 	REX_FUNC_PROLOGUE();
 	// std r14,-152(r1)

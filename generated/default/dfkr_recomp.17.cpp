@@ -14123,17 +14123,11 @@ loc_821B1A14:
 	case 9:
 		goto loc_821B1A58;
 	case 10:
-		goto loc_821B1A4C;
+		sub_821B1A4C(ctx, base);
+		return;
 	default:
 		__builtin_trap(); // Switch case out of range
 	}
-loc_821B1A4C:
-	// lbz r8,10(r3)
-	ctx.r8.u64 = REX_LOAD_U8(ctx.r3.u32 + 10);
-	// rotlwi r8,r8,24
-	ctx.r8.u64 = __builtin_rotateleft32(ctx.r8.u32, 24);
-	// add r10,r8,r10
-	ctx.r10.u64 = ctx.r8.u64 + ctx.r10.u64;
 loc_821B1A58:
 	// lbz r8,9(r3)
 	ctx.r8.u64 = REX_LOAD_U8(ctx.r3.u32 + 9);

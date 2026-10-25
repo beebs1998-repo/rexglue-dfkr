@@ -62,9 +62,9 @@ packages. Three of their binaries are recompiled here:
 
 | Content id | Module | Notes |
 | --- | --- | --- |
-| `60C587083B6BAC92A1F662AF72A11BD497F4838554` | `dat111.bin` | |
-| `456866D4E784B661072F7B2D51C63D94E088644754` | `dat164.bin` | the package also carries `dat15.bin` |
-| `456866D4E784B661072F7B2D51C63D94E088644754` | `dat15.bin` | |
+| `60C587083B6BAC92A1F662AF72A11BD497F4838554` | `dat111.bin` | package display name: **"ver 1.51"** |
+| `456866D4E784B661072F7B2D51C63D94E088644754` | `dat164.bin` | package display name: **"DoDonPachi Resurrection Black Label"** |
+| `456866D4E784B661072F7B2D51C63D94E088644754` | `dat15.bin` | same package (also carries `spa.bin`, XDBF asset data) |
 
 Availability comes entirely from *staging* — no config cvar:
 

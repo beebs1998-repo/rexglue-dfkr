@@ -37497,10 +37497,8 @@ loc_8820D688:
 	// mr r8,r8
 	ctx.r8.u64 = ctx.r8.u64;
 	// b 0x8820d6a4
-	goto loc_8820D6A4;
-loc_8820D6A4:
-	// mr r3,r29
-	ctx.r3.u64 = ctx.r29.u64;
+	sub_8820D6A4(ctx, base);
+	return;
 loc_8820D6A8:
 	// addi r1,r31,144
 	ctx.r1.s64 = ctx.r31.s64 + 144;

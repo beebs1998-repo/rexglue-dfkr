@@ -947,7 +947,10 @@ DEFINE_REX_FUNC(sub_820A6E98) {
 	// cmplwi cr6,r11,26
 	ctx.cr6.compare<uint32_t>(ctx.r11.u32, 26, ctx.xer);
 	// bgt cr6,0x820a6f98
-	if (ctx.cr6.gt) goto loc_820A6F98;
+	if (ctx.cr6.gt) {
+		sub_820A6F98(ctx, base);
+		return;
+	}
 	// lis r12,-32246
 	ctx.r12.s64 = -2113273856;
 	// rlwinm r0,r11,2,0,29
@@ -963,57 +966,82 @@ DEFINE_REX_FUNC(sub_820A6E98) {
 	case 0:
 		goto loc_820A6F2C;
 	case 1:
-		goto loc_820A6F98;
+		sub_820A6F98(ctx, base);
+		return;
 	case 2:
-		goto loc_820A6F98;
+		sub_820A6F98(ctx, base);
+		return;
 	case 3:
-		goto loc_820A6F74;
+		sub_820A6F74(ctx, base);
+		return;
 	case 4:
-		goto loc_820A6F98;
+		sub_820A6F98(ctx, base);
+		return;
 	case 5:
-		goto loc_820A6F50;
+		sub_820A6F50(ctx, base);
+		return;
 	case 6:
-		goto loc_820A6F74;
+		sub_820A6F74(ctx, base);
+		return;
 	case 7:
-		goto loc_820A6F98;
+		sub_820A6F98(ctx, base);
+		return;
 	case 8:
-		goto loc_820A6F98;
+		sub_820A6F98(ctx, base);
+		return;
 	case 9:
-		goto loc_820A6F98;
+		sub_820A6F98(ctx, base);
+		return;
 	case 10:
-		goto loc_820A6F98;
+		sub_820A6F98(ctx, base);
+		return;
 	case 11:
-		goto loc_820A6F98;
+		sub_820A6F98(ctx, base);
+		return;
 	case 12:
-		goto loc_820A6F98;
+		sub_820A6F98(ctx, base);
+		return;
 	case 13:
-		goto loc_820A6F98;
+		sub_820A6F98(ctx, base);
+		return;
 	case 14:
-		goto loc_820A6F98;
+		sub_820A6F98(ctx, base);
+		return;
 	case 15:
-		goto loc_820A6F98;
+		sub_820A6F98(ctx, base);
+		return;
 	case 16:
-		goto loc_820A6F98;
+		sub_820A6F98(ctx, base);
+		return;
 	case 17:
-		goto loc_820A6F98;
+		sub_820A6F98(ctx, base);
+		return;
 	case 18:
-		goto loc_820A6F98;
+		sub_820A6F98(ctx, base);
+		return;
 	case 19:
-		goto loc_820A6F98;
+		sub_820A6F98(ctx, base);
+		return;
 	case 20:
 		goto loc_820A6F2C;
 	case 21:
-		goto loc_820A6F98;
+		sub_820A6F98(ctx, base);
+		return;
 	case 22:
-		goto loc_820A6F98;
+		sub_820A6F98(ctx, base);
+		return;
 	case 23:
-		goto loc_820A6F74;
+		sub_820A6F74(ctx, base);
+		return;
 	case 24:
-		goto loc_820A6F98;
+		sub_820A6F98(ctx, base);
+		return;
 	case 25:
-		goto loc_820A6F50;
+		sub_820A6F50(ctx, base);
+		return;
 	case 26:
-		goto loc_820A6F74;
+		sub_820A6F74(ctx, base);
+		return;
 	default:
 		__builtin_trap(); // Switch case out of range
 	}
@@ -1036,61 +1064,6 @@ loc_820A6F2C:
 	ctx.r9.s64 = ctx.r10.s64 + -21184;
 	// b 0x820a6fb8
 	goto loc_820A6FB8;
-loc_820A6F50:
-	// lis r10,-32199
-	ctx.r10.s64 = -2110193664;
-	// rlwinm r11,r4,2,0,29
-	ctx.r11.u64 = __builtin_rotateleft64(ctx.r4.u32 | (ctx.r4.u64 << 32), 2) & 0xFFFFFFFC;
-	// addi r9,r10,21624
-	ctx.r9.s64 = ctx.r10.s64 + 21624;
-	// lwzx r8,r11,r9
-	ctx.r8.u64 = REX_LOAD_U32(ctx.r11.u32 + ctx.r9.u32);
-	// cmplwi cr6,r8,0
-	ctx.cr6.compare<uint32_t>(ctx.r8.u32, 0, ctx.xer);
-	// beqlr cr6
-	if (ctx.cr6.eq) return;
-	// lis r10,-32199
-	ctx.r10.s64 = -2110193664;
-	// addi r9,r10,21744
-	ctx.r9.s64 = ctx.r10.s64 + 21744;
-	// b 0x820a6fb8
-	goto loc_820A6FB8;
-loc_820A6F74:
-	// lis r10,-32198
-	ctx.r10.s64 = -2110128128;
-	// rlwinm r11,r4,2,0,29
-	ctx.r11.u64 = __builtin_rotateleft64(ctx.r4.u32 | (ctx.r4.u64 << 32), 2) & 0xFFFFFFFC;
-	// addi r9,r10,-22312
-	ctx.r9.s64 = ctx.r10.s64 + -22312;
-	// lwzx r8,r11,r9
-	ctx.r8.u64 = REX_LOAD_U32(ctx.r11.u32 + ctx.r9.u32);
-	// cmplwi cr6,r8,0
-	ctx.cr6.compare<uint32_t>(ctx.r8.u32, 0, ctx.xer);
-	// beqlr cr6
-	if (ctx.cr6.eq) return;
-	// lis r10,-32198
-	ctx.r10.s64 = -2110128128;
-	// addi r9,r10,-22208
-	ctx.r9.s64 = ctx.r10.s64 + -22208;
-	// b 0x820a6fb8
-	goto loc_820A6FB8;
-loc_820A6F98:
-	// lis r10,-32199
-	ctx.r10.s64 = -2110193664;
-	// rlwinm r11,r4,2,0,29
-	ctx.r11.u64 = __builtin_rotateleft64(ctx.r4.u32 | (ctx.r4.u64 << 32), 2) & 0xFFFFFFFC;
-	// addi r9,r10,344
-	ctx.r9.s64 = ctx.r10.s64 + 344;
-	// lwzx r8,r11,r9
-	ctx.r8.u64 = REX_LOAD_U32(ctx.r11.u32 + ctx.r9.u32);
-	// cmplwi cr6,r8,0
-	ctx.cr6.compare<uint32_t>(ctx.r8.u32, 0, ctx.xer);
-	// beqlr cr6
-	if (ctx.cr6.eq) return;
-	// lis r10,-32199
-	ctx.r10.s64 = -2110193664;
-	// addi r9,r10,448
-	ctx.r9.s64 = ctx.r10.s64 + 448;
 loc_820A6FB8:
 	// lwzx r11,r11,r9
 	ctx.r11.u64 = REX_LOAD_U32(ctx.r11.u32 + ctx.r9.u32);

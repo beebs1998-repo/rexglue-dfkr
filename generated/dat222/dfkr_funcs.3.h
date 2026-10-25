@@ -3,7 +3,12 @@
 #include "dfkr_pch.h"
 
 DECLARE_REX_FUNC(__imp__KeBugCheck);
+DECLARE_REX_FUNC(__imp__KeGetCurrentProcessType);
+DECLARE_REX_FUNC(__imp__NtAllocateVirtualMemory);
+DECLARE_REX_FUNC(__imp__NtFreeVirtualMemory);
+DECLARE_REX_FUNC(__imp__NtQueryVirtualMemory);
 DECLARE_REX_FUNC(__imp__RtlCompareMemoryUlong);
+DECLARE_REX_FUNC(__imp__RtlInitializeCriticalSection);
 DECLARE_REX_FUNC(__imp__RtlLeaveCriticalSection);
 DECLARE_REX_FUNC(__restgprlr_14);
 DECLARE_REX_FUNC(__restgprlr_15);
@@ -295,4 +300,5 @@ DECLARE_REX_FUNC(sub_88209B80);
 DECLARE_REX_FUNC(sub_88209E68);
 DECLARE_REX_FUNC(sub_8820A270);
 DECLARE_REX_FUNC(sub_8820A3A8);
+DECLARE_REX_FUNC(sub_8820AAE8);
 DECLARE_REX_FUNC(sub_8820CC98);
